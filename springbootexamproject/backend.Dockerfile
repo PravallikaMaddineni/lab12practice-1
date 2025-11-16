@@ -5,8 +5,10 @@ WORKDIR /app
 
 COPY mvnw .          
 COPY .mvn/ .mvn
-COPY pom.xml ./
 
+RUN chmod +x mvnw
+
+COPY pom.xml ./
 COPY src ./src
 
 RUN ./mvnw clean package -DskipTests
@@ -20,4 +22,3 @@ COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 2000
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
-
